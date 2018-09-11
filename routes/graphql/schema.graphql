@@ -1,0 +1,28 @@
+type Product {
+    id: Int!
+    name: String!
+    price: Float! @field(resolver: "App\\Http\\GraphQL\\Types\\Product@price")
+    owner: User! @belongsTo(relation: "user")
+}
+
+type User {
+    email: String!
+    id: Int!
+    name: String!
+    products: [Product!]! @hasMany
+}
+
+type Query {
+    viewer: User @auth
+    allProducts: [Product!]! @all
+}
+
+input CreateProductInput {
+    name: String!
+    price: Float!
+}
+
+type Mutation {
+    createProduct(input: CreateProductInput!): Product
+        @field(resolver: "App\\Http\\GraphQL\\Mutations\\Products\\CreateProduct@handle")
+}
