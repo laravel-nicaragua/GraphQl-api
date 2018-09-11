@@ -1,0 +1,36 @@
+query UserQuery {
+    viewer {
+        email
+        id
+        name
+        products {
+            id
+            name
+            price
+        }
+    }
+}
+
+query ProductsQuery {
+    allProducts {
+        id
+        name
+        price
+        owner {
+            email
+            id
+            name
+        }
+    }
+}
+
+mutation CreateProduct($input: CreateProductInput!) {
+    createProduct(input: {
+        name: "Pizza Cuatro Quesos"
+        price: 16
+    }) {
+        id
+        name
+        price
+    }
+}
